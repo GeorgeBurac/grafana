@@ -441,7 +441,7 @@ func (hs *HTTPServer) registerRoutes() {
 	r.Get("/healthz", hs.healthzHandler)
 
 	// Frontend logs
-	r.Post("/log_frontend", Wrap(hs.LogFrontendMessage))
+	r.Post("/log_frontend", bind(FrontendSentryEvent{}), Wrap(hs.LogFrontendMessage))
 
 	r.Get("/*", reqSignedIn, hs.Index)
 }
